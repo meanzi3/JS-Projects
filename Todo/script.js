@@ -17,7 +17,7 @@ function createNewTodo() {
   todos.unshift(item);
 
   // 요소 생성하기
-  const { itemEl, inputEl, editBtn, removeBtn } = createTodoElement(item);
+  const { itemEl, inputEl, editBtn, deleteBtn } = createTodoElement(item);
 
   // 리스트 요소 안에 방금 생성한 아이템 요소 추가
   list.prepend(itemEl);
@@ -52,12 +52,12 @@ function createTodoElement(item) {
   actionsEl.classList.add("actions");
 
   const editBtn = document.createElement("button");
-  editBtn.classList.add("meterial-icons");
+  editBtn.classList.add("material-symbols-outlined");
   editBtn.innerText = "edit";
 
-  const removeBtn = document.createElement("button");
-  removeBtn.classList.add("meterial-icons", "remove-btn");
-  removeBtn.innerText = "remove_circle";
+  const deleteBtn = document.createElement("button");
+  deleteBtn.classList.add("material-symbols-outlined");
+  deleteBtn.innerText = "delete";
 
   // 체크박스 클릭 이벤트
   checkBoxEl.addEventListener("change", () => {
@@ -89,8 +89,8 @@ function createTodoElement(item) {
     inputEl.focus();
   });
 
-  // remove 버튼 클릭 이벤트
-  removeBtn.addEventListener("click", () => {
+  // delete 버튼 클릭 이벤트
+  deleteBtn.addEventListener("click", () => {
     // 해당하는 요소의 id와 다른 id의 todo들만 filtering 해서 todos 배열에 새로 저장
     todos = todos.filter((todo) => todo.id !== item.id);
     // 실제 요소도 삭제
@@ -100,13 +100,13 @@ function createTodoElement(item) {
   });
 
   actionsEl.append(editBtn);
-  actionsEl.append(removeBtn);
+  actionsEl.append(deleteBtn);
 
   itemEl.append(checkBoxEl);
   itemEl.append(inputEl);
   itemEl.append(actionsEl);
 
-  return { itemEl, inputEl, editBtn, removeBtn };
+  return { itemEl, inputEl, editBtn, deleteBtn };
 }
 
 // LocalStorage에 저장 함수
