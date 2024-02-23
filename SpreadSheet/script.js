@@ -11,7 +11,7 @@ const alphabets = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K"];
 // 입력한 데이터를 csv 형식으로 저장
 exportBtn.onclick = function (e) {
   let csv = "";
-  for (let i = 0; i < spreadsheet.length; i++) {
+  for (let i = 1; i < spreadsheet.length; i++) {
     csv +=
       spreadsheet[i]
         .filter((item) => !item.isHeader)
@@ -21,7 +21,7 @@ exportBtn.onclick = function (e) {
   console.log(csv);
 
   // Blob : Binary Large Object - 주로 이미지, 비디오 같은 미디어 데이터를 다룰 때 사용
-  const csvObj = new Blob([csv]);
+  const csvObj = new Blob(["\ufeff" + csv]); // 한글 깨짐 방지 UTF-8 인코딩
   // URL.createObjectURL() 는 Blob 객체를 가리키는 URL을 생성하여, DOM 에서 참조할 수 있도록 한다.
   const csvUrl = URL.createObjectURL(csvObj);
 
