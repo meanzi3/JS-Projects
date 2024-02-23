@@ -8,6 +8,30 @@ const spreadsheet = [];
 
 const alphabets = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K"];
 
+// 입력한 데이터를 csv 형식으로 저장
+exportBtn.onclick = function (e) {
+  let csv = "";
+  for (let i = 0; i < spreadsheet.length; i++) {
+    csv +=
+      spreadsheet[i]
+        .filter((item) => !item.isHeader)
+        .map((item) => item.data)
+        .join(",") + "\r\n";
+  }
+  console.log(csv);
+
+  // Blob : Binary Large Object - 주로 이미지, 비디오 같은 미디어 데이터를 다룰 때 사용
+  const csvObj = new Blob([csv]);
+  // URL.createObjectURL() 는 Blob 객체를 가리키는 URL을 생성하여, DOM 에서 참조할 수 있도록 한다.
+  const csvUrl = URL.createObjectURL(csvObj);
+
+  // url을 이용하여 다운로드
+  const a = document.createElement("a");
+  a.href = csvUrl;
+  a.download = "spreadsheet.csv";
+  a.click();
+};
+
 class Cell {
   constructor(
     isHeader,
@@ -93,7 +117,14 @@ function createCellEl(cell) {
   }
 
   cellEl.onclick = () => handleCellClick(cell);
+  cellEl.onchange = (e) => handleOnChange(e.target.value, cell);
+
   return cellEl;
+}
+
+// 셀의 값이 바뀔 때 저장
+function handleOnChange(data, cell) {
+  cell.data = data;
 }
 
 // 셀 클릭 이벤트 함수
