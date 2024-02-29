@@ -143,6 +143,10 @@ function handleCellClick(cell) {
   // active 주기
   columnHeaderEl.classList.add("active");
   rowHeaderEl.classList.add("active");
+
+  // 클릭한 셀 정보 띄우기
+  document.querySelector("#cell-status").innerHTML =
+    cell.columnName + cell.rowName;
 }
 
 function getElFromRowCol(row, col) {
