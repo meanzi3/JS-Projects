@@ -8,7 +8,7 @@ createBtn.addEventListener("click", createNewTodo);
 function createNewTodo() {
   // 새로운 아이템 객체 생성
   const item = {
-    id: new Date().getTime(),
+    id: crypto.randomUUID(),
     text: "",
     complete: false,
   };
